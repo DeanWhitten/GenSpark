@@ -1,8 +1,11 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+       static Scanner userInput = new Scanner(System.in);
+       static int selection;
        public static void main (String[] args){
-           int selection;
+
 
            System.out.println(
                    "\n-------------------------------------------------------------------------\n" +
@@ -14,31 +17,45 @@ public class Main {
                    "\nWhich cave will you go into? (1 or 2)\n"
            );
 
-           Scanner userInput = new Scanner(System.in);
-           selection = userInput.nextInt();
+           takeInput();
+
+
 
            if (selection == 1){
                System.out.println(
                        "\n--------------------------------------------------------------------------\n" +
-                       "   You approach the cave ...\n" +
-                       "   It is dark and spooky ...\n" +
-                       "   A Large dragon jumps out in front of you! He opens his jaws and ...\n" +
-                       "   Gobbles you down in one bite!\n" +
-                       "--------------------------------------------------------------------------\n"
+                               "   You approach the cave ...\n" +
+                               "   It is dark and spooky ...\n" +
+                               "   A Large dragon jumps out in front of you! He opens his jaws and ...\n" +
+                               "   Gobbles you down in one bite!\n" +
+                               "--------------------------------------------------------------------------\n"
                );
-           } else if (selection == 2){
-               System.out.println(
-                       "\n--------------------------------------------------------------------------\n" +
-                       "   You approach the cave ...\n" +
-                       "   It is dark and spooky ...\n" +
-                       "   A Large dragon jumps out in front of you! He opens his jaws and ...\n" +
-                       "   Asks if you want some gold!\n" +
-                       "--------------------------------------------------------------------------\n"
-               );
-           }  else{
-               System.out.println("ERROR: INVALID INPUT, " + selection + " IS NOT AN OPTION!");
            }
 
-           
+           if (selection == 2){
+               System.out.println(
+                       "\n--------------------------------------------------------------------------\n" +
+                               "   You approach the cave ...\n" +
+                               "   It is dark and spooky ...\n" +
+                               "   A Large dragon jumps out in front of you! He opens his jaws and ...\n" +
+                               "   Asks if you want some gold!\n" +
+                               "--------------------------------------------------------------------------\n"
+               );
+           }
+
        }
+
+    private static void takeInput() {
+            selection = checkInput();
+            System.out.println(selection);
+    }
+
+    private static int checkInput() {
+            try {
+                return userInput.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("ERROR: INVALID INPUT - NOT A NUMBER");
+                return userInput.nextInt();
+            }
+        }
 }
