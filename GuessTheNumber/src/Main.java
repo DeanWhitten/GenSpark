@@ -66,19 +66,16 @@ public class Main {
         }  else if (userInputNum > mysteryNum){
             System.out.println("Your Guess is too high.");
         }   else{
-            System.out.println("Good job," + userName + "!" + " You guessed my number in " + attemptNum + " guesses!");
+            System.out.println("Good job," + userName + "!" + " You guessed my number in " + (attemptNum + 1) + " guesses!");
             maxNumAttempts = 9;
             playAgain();
         }
     }
 
     private static void playAgain() {
-
-        
-            do{
+        System.out.println("Would you like to play again? (y or n)"); //hot fix for duplicate printing: needs to be put in the while loop below inside own loop set to iterate one time
+        while(maxNumAttempts == 9){
                 ++maxNumAttempts;
-
-                System.out.println("Would you like to play again? (y or n)");
                 String playAgainResponse = userInput.nextLine();
 
                 if(Objects.equals(playAgainResponse, "y")){
@@ -90,7 +87,7 @@ public class Main {
                 } else{
                     maxNumAttempts = 9;
                 }
-            }while(maxNumAttempts == 9);
+            }
 
 
 
