@@ -4,11 +4,10 @@ import java.util.Random;
 
 public class Main {
 
-    static String userName,
-            playAgainResponse;
+    static String userName;
     static int attemptNum = 0,
             userInputNum,
-            mysteryNum = 100, //gets rewritten with a random num once game starts
+            mysteryNum, //gets rewritten with a random num once game starts
             maxNumAttempts = 6; // 6 toggle on game engine------- 9 toggle off game engine-----8 end game after play
 
     static Scanner userInput = new Scanner (System.in);
@@ -18,15 +17,13 @@ public class Main {
     }
 
     private static void gameEngine() {
+        startGame();
         while(maxNumAttempts == 6){
             if (attemptNum == 0) {
-                startGame();
                 takeGuess();
-                checkNumber();
             } else {
                 if (attemptNum != maxNumAttempts) {
                     takeGuess();
-                    checkNumber();
                 }
                 if (attemptNum == maxNumAttempts){
                     System.out.println("GAMEOVER....\nNumber of attempts:" + attemptNum);
@@ -40,7 +37,6 @@ public class Main {
     private static void startGame() {
         System.out.println("Hello! What is your name?");
         userName = userInput.nextLine();
-
         System.out.println("Well, " + userName + ", I am thinking of a number between 1 and 20.");
         generateMysteryNumber();
     }
@@ -50,10 +46,18 @@ public class Main {
         mysteryNum = random.nextInt(20)+1;
     }
 
-    private static void takeGuess() {
+    private static int takeGuess() {
         System.out.println("Take a Guess.");
-        userInputNum = userInput.nextInt();
-        attemptNum++;
+        try{
+            userInputNum = Integer.parseInt(userInput.next());
+            checkNumber();
+            attemptNum++;
+            return userInputNum;
+        } catch(NumberFormatException e){
+            System.out.println("ERROR: INVALID INPUT - NOT A NUMBER");
+            userInput.nextLine();
+            return 0;
+        }
     }
 
     private static void checkNumber() {
@@ -69,18 +73,26 @@ public class Main {
     }
 
     private static void playAgain() {
-        maxNumAttempts = 9;
-        System.out.println("Would you like to play again? (y or n)");
 
-        while(maxNumAttempts == 9){
-            playAgainResponse = userInput.nextLine();
-            if(Objects.equals(playAgainResponse, "y")){
-                attemptNum = 0;
-                mysteryNum = 100;
-                maxNumAttempts = 6;
-            }else if (Objects.equals (playAgainResponse, "n")){
-                maxNumAttempts = 8; //breaks 
-            }
-        }
+        
+            do{
+                ++maxNumAttempts;
+
+                System.out.println("Would you like to play again? (y or n)");
+                String playAgainResponse = userInput.nextLine();
+
+                if(Objects.equals(playAgainResponse, "y")){
+                    attemptNum = 0;
+                    generateMysteryNumber();
+                    maxNumAttempts = 6;
+                }else if (Objects.equals (playAgainResponse, "n")){
+                    maxNumAttempts = 8; //breaks
+                } else{
+                    maxNumAttempts = 9;
+                }
+            }while(maxNumAttempts == 9);
+
+
+
     }
 }
