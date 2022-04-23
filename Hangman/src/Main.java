@@ -97,6 +97,7 @@ public class Main {
         }
     }
 
+    //display hanging man dependent on user's guesses
     private static void hangmanDisplay() {
         System.out.println("+---+");
         switch (numAttempts){
