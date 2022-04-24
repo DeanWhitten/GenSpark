@@ -41,7 +41,16 @@ public class Main {
 
     //  word found after user entered a character
     private static void enter(String c) {
+        System.out.println("\nAttempts remaining : " + (maxAttempts - numAttempts));
+        if (guessedLetters.contains(c)){
+            System.out.println("""
+                    +++++++++++++++++++++++++++++++++++++++++
+                    +  You already guessed that, try again. +
+                    +++++++++++++++++++++++++++++++++++++++++
+                    """);
+        }
         if (!guessedLetters.contains(c)) {
+
             if (secretWord.contains(c)) {
                 int index = secretWord.indexOf(c);
                 while (index >= 0) {
@@ -51,6 +60,7 @@ public class Main {
             } else {
                 numAttempts++;
             }
+
             guessedLetters.add(c);
         }
     }
@@ -71,29 +81,52 @@ public class Main {
     public static void play() {
         try (Scanner input = new Scanner(System.in)) {
             while (numAttempts < maxAttempts) {
+
                 System.out.println("\nGuess a letter : ");
                 String str = input.next();
+
 
                 if (str.length() > 1) {
                     str = str.substring(0, 1);
                 }
 
-                enter(str);
+                System.out.println("\n\n\n\n");
                 hangmanDisplay();
+                enter(str);
+
+
+                String listToString = "";
+                for(String l : guessedLetters){
+                     listToString += l;
+                }
                 System.out.println("\n" + wordFoundContent());
+                System.out.println("Guessed Letters : " +  listToString);
+
 
                 if (wordFound()) {
-                    System.out.println("\nYou win!");
+                    System.out.println("""
+                        ~~~~~~~~~~~~~~
+                        ~  You win!  ~
+                        ~~~~~~~~~~~~~~
+                        """);
                     break;
                 } else {
-                    System.out.println("\n Attempts remaining : " + (maxAttempts - numAttempts));
+
                 }
+
+
             }
 
             if (numAttempts == maxAttempts) {
-                System.out.println("\nYou lose!");
+                System.out.println("""
+                        !!!!!!!!!!!!!
+                        ! You lose! !
+                        !!!!!!!!!!!!!
+                        """);
                 System.out.println("=> Word to find was : " + secretWord);
             }
+
+
         }
     }
 
