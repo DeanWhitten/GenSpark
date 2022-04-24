@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -109,6 +107,7 @@ public class Main {
                         ~  You win!  ~
                         ~~~~~~~~~~~~~~
                         """);
+                    playAgain();
                     break;
                 } else {
 
@@ -124,6 +123,7 @@ public class Main {
                         !!!!!!!!!!!!!
                         """);
                 System.out.println("=> Word to find was : " + secretWord);
+                playAgain();
             }
 
 
@@ -158,6 +158,24 @@ public class Main {
         }
 
         System.out.println("====");
+    }
+
+    public static void playAgain(){
+        System.out.println("Would you like to play agian? y or n");
+        Scanner input = new Scanner(System.in);
+        String str = input.nextLine();
+
+        str = str.toLowerCase();
+
+        if(Objects.equals(str, "y")){
+            System.out.println("HANGMAN");
+            numAttempts = 0;
+            guessedLetters.clear();
+            startGame();
+            play();
+        }
+
+
     }
 
     public static void main(String[] args) {
