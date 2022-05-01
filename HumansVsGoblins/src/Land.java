@@ -3,12 +3,19 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Land {
-    public int ROWS = 10;
-    public int COLUMNS = 10;
+    private int ROWS = 10;
+    private int COLUMNS = 10;
     public String [][] map;
     private HashMap<String, Integer> locationOfHuman;
     public HashMap<String, Integer> locationOfGoblins;
     public  int numGoblins;
+
+    public int getROWS(){return this.ROWS;}
+    public int getCOLUMNS(){return this.COLUMNS;}
+
+    public void setROWS(int ROWS){this.ROWS = ROWS;}
+    public void setCOLUMNS(int COLUMNS){this.COLUMNS = COLUMNS;}
+
     public void  generateDefaultMap(){
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
