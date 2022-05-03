@@ -224,9 +224,7 @@ public class Main {
 
         }
     }
-
-
-
+    
     private static void displayBattle(Goblin gEle) {   ////rewrite to make more reusable
         String hName = userObj.getName();
         String hHth = String.valueOf(userObj.getHealth());
@@ -258,6 +256,7 @@ public class Main {
 
         System.out.println(battleScreen);
     }
+
     private static void calculateMoveResults(Goblin gEle, String battleMove) {
                    /*
                    * store: human choice, human health, hum str, human lives, goblin health, goblin strength
