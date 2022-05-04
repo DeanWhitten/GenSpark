@@ -57,7 +57,7 @@ public class Land {
 
     }
 
-    private void generateHumanStartingLocation() {
+    public void generateHumanStartingLocation() {
         for (int i = 0; i < 1; i++) {
             int row = (int) (Math.random() * ROWS);
             int column = (int) (Math.random() * COLUMNS);
@@ -73,7 +73,7 @@ public class Land {
     }
 
     private void generateGoblinLocations(){
-        numGoblins = (int) (Math.random() * 10);
+        numGoblins = (int) ((Math.random() * 10) + 10);
 
         for(int i = 0; i < numGoblins; i++){
 

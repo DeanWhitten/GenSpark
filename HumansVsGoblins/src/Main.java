@@ -32,7 +32,6 @@ public class Main {
         userObj.setX(land.updateHumanLocation().get("x"));
         userObj.setY(land.updateHumanLocation().get("y"));
         goblinArr = (List<Object>) generateGoblinObjs();
-
         gameEngine();
     }
 
@@ -214,14 +213,11 @@ public class Main {
 
             String battleMove = userInput.nextLine();
 
-            while(!battleMove.matches("[1234]")){
+            while(!battleMove.matches("[123]")){
                 System.out.println(battleMove + " ISN'T AN OPTION! Select your move human!");
                 battleMove = userInput.nextLine();
             }
-
-
             calculateMoveResults(gEle, battleMove);
-
         }
     }
     
@@ -245,7 +241,7 @@ public class Main {
                  |    \\(_)/   |                                           |  _( )_ |  |
                  +____________+    Lives:  $lives                            +-----------+
                 +-------------------------------------------------------------------------------------------------------+
-                	                   1 = Attack       2 = Block       3 = Dodge       4 = RUN!
+                	                   1 = Attack       2 = Dodge     
                 """).replace("$humanName",hName)
                 .replace("$humanHealth", hHth)
                 .replace("$humanStrength", hStg)
@@ -283,14 +279,6 @@ public class Main {
                         "damage!");
                 break;
             case"12":
-                //A + B = goblin's health - (humanStrength - goblinStrength)-> goblin catches damage equal to the
-                // difference in strength from user
-                displayBattle(gEle);
-                gEle.setHealth(gEle.getHealth() - (userObj.getStrength()- gEle.getStrength()) );
-                System.out.println("You charge towards " + gEle.getName() + " to attack... but they quickly block " +
-                        "your attack! They suffer only minor damage...");
-                break;
-            case"13":
                 //A + D = grab dodge probability for goblin return if true, no damage, if false goblin takes damage
                 // equal to human's strength multiplied by 2.
                 favoredInOdds = determineMoveProbability();
@@ -307,24 +295,6 @@ public class Main {
                 }
                 break;
             case"21":
-                //B + A = user's health - (HS - GS) -> user catches dmg equal to the difference in strength with goblin
-                userObj.setHealth(userObj.getHealth() - ( userObj.getStrength()- gEle.getStrength()) );
-                displayBattle(gEle);
-                System.out.println(gEle.getName() +" charges at you to attack.... you are quick and you block them! " +
-                        "you suffer only minor wounds from the attack.");
-                break;
-            case"22":
-                //B + B = weird... both blocking. nothing happens to stats
-                displayBattle(gEle);
-                System.out.println("Well this is awkward.... you and " + gEle.getName() + " seem to both be on guard." +
-                        "..");
-                break;
-            case"23":
-                // B + D = nothing happens to stats
-                displayBattle(gEle);
-                System.out.println("You stand guarded as " + gEle.getName() + " is moving around....");
-                break;
-            case"31":
                 //D + A = grab dodge probability for human, if true human dodges if false human takes damage equal
                 // to goblin's strength multiplied by 2
                 favoredInOdds = determineMoveProbability();
@@ -339,62 +309,13 @@ public class Main {
                             "enough... You take a direct hit and suffer major damage!");
                 }
                 break;
-            case"32":
-                // D + B == nothing happens to stats
-                displayBattle(gEle);
-                System.out.println(gEle.getName() + " has their guard up as you move around looking for an opening?");
-                break;
-            case"33":
+            case"22":
                 //D + D = nothing happens to stats
                 displayBattle(gEle);
                 System.out.println(gEle.getName() + " and you are moving around looking for opening for your next moves" +
                         ".");
                 break;
-            case"41":
-                // F + A = gets random probability if true human flees to random new location of map else human takes
-                // damage equal to goblin's strength
-                favoredInOdds = determineMoveProbability();
 
-                if(favoredInOdds){
-                    displayBattle(gEle);
-                    System.out.println("You manage to escape " + gEle.getName() + "... and find your self in a " +
-                            "strange location");
-                    //something to exit battle
-                }else{
-                    displayBattle(gEle);
-                    System.out.println(gEle.getName() + " attacks you as you attempt to run... You take damage and " +
-                            "are kept from leaving the fight!");
-                }
-                break;
-            case"42":
-                // F + B = no change to status with outcome, get rand probability if true human escapes to random
-                // location if false human stays another round.
-                favoredInOdds = determineMoveProbability();
-
-                if (favoredInOdds){
-                    displayBattle(gEle);
-                    System.out.println("You manage to sneak away from " + gEle.getName() + " while they were " +
-                            "distracted anticipating an attack...");
-                    //something to exit battle
-                } else {
-                    displayBattle(gEle);
-                    System.out.println(gEle.getName() + " catches you trying to run away and you flinch!");
-                }
-                break;
-            case"43":
-                //F + D = no changes to stats, get random probability if true human escapes to random location, if
-                // false human stays another round
-                favoredInOdds = determineMoveProbability();
-                if(favoredInOdds){
-                   displayBattle(gEle);
-                   System.out.println("You manage to escape while " + gEle.getName() + " wasn't paying attention! " +
-                           "However, now you seem to be in a strange location!");
-                    //something to exit battle
-                }else {
-                    displayBattle(gEle);
-                    System.out.println("You try to leave but " + gEle.getName() + " catches up to you!");
-                }
-                break;
         }
 
         if(userObj.getHealth() <= 0){
@@ -412,14 +333,29 @@ public class Main {
 
             if(goblinArr.isEmpty()){
                 System.out.println("YOU WON! YOU OVER THREW THE GOBLINS AND SAVED THE HUMAN RACE!");
-                promptPlayagain();
+                System.exit(0);
             }else{
                 System.out.println("There are now only " + goblinArr.size() + " goblins left!");
-
+                levelUpGoblins();
+                randomUserBoost();
             }
 
         }
     }
+
+    private static void randomUserBoost() {
+        userObj.setHealth(userObj.getHealth()+25);
+        userObj.setLives(userObj.getLives()+1);
+        userObj.setStrength(userObj.getStrength() + 10);
+    }
+
+    private static void levelUpGoblins() {
+        for(int i = 0; i < goblinArr.size(); i++){
+            Goblin g = (Goblin) goblinArr.get(i);
+             g.setStrength(g.getStrength() + 10);
+        }
+    }
+
 
     private static boolean determineMoveProbability() {
         int dice = 20;
@@ -433,33 +369,18 @@ public class Main {
         }
     }
 
-
-
     private static String generateGoblinMove() {
         Random rn = new Random();
-        int randomGoblinMove = rn.nextInt(3)+1;
+        int randomGoblinMove = rn.nextInt(1)+1;
         return String.valueOf(randomGoblinMove);
     }
+
     private static void gameOver() {
         System.out.println("YOU DIED! GAME OVER");
-        promptPlayagain();
+        System.exit(0);
     }
 
-    private static void promptPlayagain() {
-        System.out.println("Would you Like to play again? Y or N");
-        String userPrompt =userInput.nextLine();
-        while(!userPrompt.matches("[YyNn]")){
-            System.out.println(userPrompt + " ISN'T AN OPTION! Would you like to play again human?");
-            userPrompt = userInput.nextLine();
-        }
-        userPrompt.toLowerCase(Locale.ROOT);
 
-        if(userPrompt == "n"){
-            System.exit(0);
-        }
-        if (userPrompt == "y"){
-            startGame();    //doesn't work as intended need to introduce global var to exit game loop // restart game
-        }
 
-    }
+
 }
