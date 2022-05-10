@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HumansVsGoblins_Android</string>
+    <string name="titleScreen_TitleText">Humans Vs Goblins</string>
+    <string name="titleScreen_StartButton">Start Game</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brickRed">#b2341e</color>
+    <color name="smokeOrange">#bf4f09</color>
+    <color name="GoldColor">#d49c24</color>
+
+    <color name="wood">#614c2e</color>
+    <color name="medFleshTone">#a97951</color>
+    <color name="lightFleshTone">#dcbc9c</color>
+
+    <color name="darkForest">#373e24</color>
+    <color name="forestGreen">#4c7540</color>
+    <color name="lightSage">#94ae87</color>
+
+    <color name="deepBlue">#052b36</color>
+    <color name="medBlue">#015768</color>
+    <color name="lighterBlu">#4e80a1</color>
+
+    <color name="black">#242828</color>
+    <color name="white">#fffaef</color>
+</resources>
