@@ -1,4 +1,4 @@
-#GenSpark
+# GenSpark
 **Java Core Trainning**
 This is my work from the first 6 weeks of 12 weeks of training at GenSpark for Full-Stack Java Engineering. Each week covered a variety of core Java concepts with projects related to those concepts to practice and demonstrate the understanding of some of that week's concepts.
 
