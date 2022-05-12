@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/medFleshTone"
+    tools:context=".GameBoardActivity"
+    tools:ignore="MissingDefaultResource">
+
+    <Button
+        android:id="@+id/downBtn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="185dp"
+        android:layout_marginEnd="185dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/downBtnText"
+        android:textColor="#37D49C24"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:cornerRadius="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/upBtn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="185dp"
+        android:layout_marginEnd="185dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/upBtnText"
+        android:textColor="#37D49C24"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:cornerRadius="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/downBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tileMapTable"
+        tools:ignore="TextContrastCheck"
+        tools:text="@string/upBtnText" />
+
+    <Button
+        android:id="@+id/leftBtn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/leftBtnText"
+        android:textColor="#37D49C24"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:cornerRadius="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/downBtn"
+        app:layout_constraintEnd_toStartOf="@+id/rightBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upBtn"
+        app:layout_constraintVertical_bias="0.4"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/rightBtn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="140dp"
+        android:text="@string/rightBtnText"
+        android:textColor="#37D49C24"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:cornerRadius="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/downBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toEndOf="@+id/leftBtn"
+        app:layout_constraintTop_toBottomOf="@+id/upBtn"
+        app:layout_constraintVertical_bias="0.4"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/tileMapTable"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dummy" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="56dp"
+        android:background="@color/lightFleshTone"
+        android:paddingLeft="24dp"
+        android:paddingTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/tileMapTable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="99dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="110dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="51dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tileMapTable"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/forestGreen"
+        app:layout_constraintBottom_toTopOf="@+id/upBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

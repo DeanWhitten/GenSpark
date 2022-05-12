@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000"
+        motion:autoTransition="animateToEnd"
+        motion:motionInterpolator="cubic(0.94,0.01,1,0.34)">
+       <KeyFrameSet>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            motion:layout_constraintVertical_bias="0.47"
+            motion:layout_constraintHorizontal_bias="0.0" />
+        <Constraint
+            android:id="@+id/textView2"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintVertical_bias="0.618"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintHorizontal_bias="0.333"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/GoldColor" />
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/textView2"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintVertical_bias="0.128"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            motion:transitionEasing="cubic(0.2,0.2,0.77,0.05)">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/smokeOrange" />
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>

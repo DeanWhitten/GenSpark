@@ -88,8 +88,5 @@ public class Main {
                     maxNumAttempts = 9;
                 }
             }
-
-
-
     }
 }

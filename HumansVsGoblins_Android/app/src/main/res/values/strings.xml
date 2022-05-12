@@ -2,4 +2,17 @@
     <string name="app_name">HumansVsGoblins_Android</string>
     <string name="titleScreen_TitleText">Humans Vs Goblins</string>
     <string name="titleScreen_StartButton">Start Game</string>
+
+
+    <string name="introText">You Wake up in a strange land...\n\nAfter finding fellow humans in this strange land you find that the human race has been nearly wiped out...\n\nYou are told GOBLINS are responsible!\n\nIt is up to you to save the human race from goblin menace!</string>
+    <string name="introUserNameInput">Enter Your Name</string>
+    <string name="submitUserNameInputBtn">Enter</string>
+    <string name="PlayerInputPrompt">What is your name human?</string>
+
+
+    <string name="upBtnText">ᐃ</string>
+    <string name="downBtnText">ᐁ</string>
+    <string name="leftBtnText">ᐊ</string>
+    <string name="rightBtnText">ᐅ</string>
+    <string name="tileMapCanvasContentDescriptionText">tileMapCanvas</string>
 </resources>
