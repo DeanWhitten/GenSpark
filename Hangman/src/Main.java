@@ -16,7 +16,7 @@ public class Main {
     private static ArrayList < String > guessedLetters = new ArrayList < > ();
 
     // random word from word bank
-    private static String wordGenorator() {
+    private static String wordGenerator() {
         return wordBank[randomGen.nextInt(wordBank.length)];
     }
 
@@ -24,7 +24,7 @@ public class Main {
     public static void startGame() {
         numAttempts = 0;
         guessedLetters.clear();
-        secretWord = wordGenorator();
+        secretWord = wordGenerator();
         secretWordLettersGuessed = new char[secretWord.length()];
 
         for (int i = 0; i < secretWordLettersGuessed.length; i++) {
@@ -58,7 +58,6 @@ public class Main {
             } else {
                 numAttempts++;
             }
-
             guessedLetters.add(c);
         }
     }
@@ -79,10 +78,8 @@ public class Main {
     public static void play() {
         try (Scanner input = new Scanner(System.in)) {
             while (numAttempts < maxAttempts) {
-
                 System.out.println("\nGuess a letter : ");
                 String str = input.next();
-
 
                 if (str.length() > 1) {
                     str = str.substring(0, 1);
@@ -92,14 +89,12 @@ public class Main {
                 hangmanDisplay();
                 enter(str);
 
-
                 String listToString = "";
                 for(String l : guessedLetters){
                      listToString += l;
                 }
                 System.out.println("\n" + wordFoundContent());
                 System.out.println("Guessed Letters : " +  listToString);
-
 
                 if (wordFound()) {
                     System.out.println("""
@@ -109,11 +104,7 @@ public class Main {
                         """);
                     playAgain();
                     break;
-                } else {
-
                 }
-
-
             }
 
             if (numAttempts == maxAttempts) {
@@ -125,8 +116,6 @@ public class Main {
                 System.out.println("=> Word to find was : " + secretWord);
                 playAgain();
             }
-
-
         }
     }
 
