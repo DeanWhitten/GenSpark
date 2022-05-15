@@ -15,4 +15,11 @@
     <string name="leftBtnText">ᐊ</string>
     <string name="rightBtnText">ᐅ</string>
     <string name="tileMapCanvasContentDescriptionText">tileMapCanvas</string>
+    <string name="humanObj_name">Human Name</string>
+    <string name="humanObj_health">Human Health</string>
+    <string name="humanObj_strength">Human Strength</string>
+    <string name="humanObj_lives">Human Lives</string>
+    <string name="humanicon">HumanIcon</string>
+    <string name="guy">GUY</string>
+    <string name="goblincounttext">goblinCountText</string>
 </resources>

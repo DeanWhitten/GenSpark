@@ -3,7 +3,6 @@ package com.example.humansvsgoblins_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,23 +24,29 @@ public class IntroActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String userInput = userInputName.getText().toString();
-                    //Clean up with string variables for text box validation msg values
+
+                    String tooManyChar = "WHOA...too many characters!";
+                    String hasSpaces ="No Spaces!";
+                    String inputPrompt = "Please input Name!";
 
                     if (!(userInput.equals("Name") || userInput.equals("")
-                            || userInput.equals("Please input Name!")
-                            || userInput.equals("WHOA...too many characters!")
-                            || userInput.length() > 10
-                            || userInput.contains(" "))) {
+                            || userInput.equals(inputPrompt) || userInput.equals(tooManyChar)
+                            || userInput.length() > 10 || userInput.contains(" "))) {
+
                         Intent enterIntent = new Intent((getApplicationContext()), GameBoardActivity.class);
+                        enterIntent.putExtra("passedName", userInput);
                         startActivity(enterIntent);
+
                     }else{
-                        if(userInput.length() > 10 && !userInput.equals("WHOA...too many characters!")){
-                            userInputName.setText("WHOA...too many characters!");
-                        }else if(userInput.contains(" ") && !(userInput.equals("WHOA...too many characters!")|| userInput.equals("No Spaces!"))){
-                            userInputName.setText("No Spaces!");
+
+                        if(userInput.length() > 10 && !userInput.equals(tooManyChar)){
+                            userInputName.setText(tooManyChar);
+                        }else if(userInput.contains(" ") && !(userInput.equals(tooManyChar)|| userInput.equals(hasSpaces))){
+                            userInputName.setText(hasSpaces);
                         }else{
-                            userInputName.setText("Please input Name!");
+                            userInputName.setText(inputPrompt);
                         }
+
                     }
                 }
             });

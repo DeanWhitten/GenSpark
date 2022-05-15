@@ -1,6 +1,6 @@
 package com.example.humansvsgoblins_android;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
 public class Humanoid {
     private String name;
