@@ -2,9 +2,8 @@ package com.example.humansvsgoblins_android;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-
-import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +31,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public int numOfGoblin;
     public List<Object> goblinArr = new ArrayList<>();
+    int battleStatusNum = 0; // 0 = not in battle 1 = in battle
    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,10 @@ public class GameBoardActivity extends AppCompatActivity {
             userObj.generateStartLocation(ROWS, COLUMNS);
             generateGoblinObjects();
         }
+            setHumanStatsDisplay();
+            createLandMapTable();
+            listenForButtons();
 
-        setHumanStatsDisplay();
-        createLandMapTable();
-        listenForButtons();
     }
 
 
@@ -98,15 +98,24 @@ public class GameBoardActivity extends AppCompatActivity {
         userObjLives.setText(heatConcat);
 
         TextView goblinTextInfo = (TextView) findViewById(R.id.goblinCountTextView);
-        String goblinTextConcat = "Goblins left: " + goblinArr.size() + " / " + numOfGoblin + "  " + userObj.getX() +","+userObj.getY();//user cords for testing
+        String goblinTextConcat = "Goblins: " + goblinArr.size() + " / " + numOfGoblin ;
         goblinTextInfo.setText(goblinTextConcat);
     }
 
     private String convertLivesToHeartChars(int lives) {
         StringBuilder heartString = new StringBuilder();
         for(int i = lives;  0 < i; i--){
-           heartString.append("❤");
+               heartString.append("❤");
         }
+        int overFlowCount = 0;
+        for(int i = heartString.length(); i > 3; i--){
+            heartString.deleteCharAt(i-1);
+            overFlowCount++;
+        }
+        if(overFlowCount != 0){
+            heartString.append("  x " + overFlowCount);
+        }
+
         return heartString.toString();
     }
 
@@ -150,39 +159,47 @@ public class GameBoardActivity extends AppCompatActivity {
 
     private void listenForButtons() {
 
+            Button up = (Button) findViewById(R.id.upBtn);
+            up.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(battleStatusNum == 0) {
+                        move("UP");
+                    }
+                }
+            });
+
+            Button down = (Button) findViewById(R.id.downBtn);
+            down.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(battleStatusNum == 0) {
+                        move("DOWN");
+                    }
+                }
+            });
+
+            Button right = (Button) findViewById(R.id.rightBtn);
+            right.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(battleStatusNum == 0) {
+                        move("RIGHT");
+                    }
+                }
+            });
+
+            Button left = (Button) findViewById(R.id.leftBtn);
+            left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(battleStatusNum == 0) {
+                        move("LEFT");
+                    }
+                }
+            });
 
 
-        Button up = (Button) findViewById(R.id.upBtn);
-        up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                move("UP");
-            }
-        });
-
-        Button down = (Button) findViewById(R.id.downBtn);
-        down.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                move("DOWN");
-            }
-        });
-
-        Button right = (Button) findViewById(R.id.rightBtn);
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                move("RIGHT");
-            }
-        });
-
-        Button left = (Button) findViewById(R.id.leftBtn);
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                move("LEFT");
-            }
-        });
  }
 
     private void move(String dir){
@@ -252,9 +269,21 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void switchToBattle(Goblin gobEle) {
-        Intent battleIntent = new Intent((getApplicationContext()), BattleSceneActivity.class);
-        //battleIntent.putExtra("passedGob", (Parcelable) gobEle);
-        startActivity(battleIntent);
+        while(gobEle.getHealth() != 0){
+            battleStatusNum = 1;
+            TableLayout battleTable = findViewById(R.id.tableLayout2);
+            battleTable.setVisibility(View.VISIBLE);
+
+            ImageView gobImg = findViewById(R.id.goblinImg);
+            gobImg.setVisibility(View.VISIBLE);
+
+        }
+        if(gobEle.getHealth() == 0){
+            battleStatusNum = 0;
+            goblinArr.remove(gobEle);
+        }
+
+
     }
 
 }

@@ -22,4 +22,8 @@
     <string name="humanicon">HumanIcon</string>
     <string name="guy">GUY</string>
     <string name="goblincounttext">goblinCountText</string>
+    <string name="battleText">BattleText</string>
+    <string name="gObjStats">gobStats</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 </resources>

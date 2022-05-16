@@ -4,100 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/medFleshTone"
+    android:background="@color/wood"
     tools:context=".GameBoardActivity"
     tools:ignore="MissingDefaultResource">
 
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@color/deepBlue"
         android:contentDescription="@string/humanicon"
         app:layout_constraintBottom_toTopOf="@+id/tileMapTable"
         app:layout_constraintEnd_toStartOf="@+id/tableLayout"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dummy" />
-
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="56dp"
-        android:background="@color/lightFleshTone"
-        android:paddingStart="24dp"
-        android:paddingTop="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/tileMapTable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/hObjNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/humanObj_name"
-                android:textColor="@color/deepBlue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/hObjHealthTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/humanObj_health"
-                android:textColor="@color/brickRed"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="51dp">
-
-            <TextView
-                android:id="@+id/hObjStrengthTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/humanObj_strength"
-                android:textColor="@color/darkForest"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/hObjLivesTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/humanObj_lives"
-                android:textSize="12sp"
-                tools:ignore="TextContrastCheck" />
-
-        </TableRow>
-
-    </TableLayout>
-
 
     <TableLayout
         android:id="@+id/tileMapTable"
@@ -105,13 +28,13 @@
         android:layout_height="300dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="72dp"
         android:background="@color/forestGreen"
         app:layout_constraintBottom_toTopOf="@+id/upBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <Button
         android:id="@+id/downBtn"
@@ -186,18 +109,157 @@
         app:layout_constraintVertical_bias="0.4"
         tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/goblinCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/goblincounttext"
-        android:textAlignment="center"
-        android:textColor="@color/lightFleshTone"
-        android:textStyle="bold"
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="362dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/lightFleshTone"
+        android:padding="15dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/upBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/goblinImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tileMapTable"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/battleView"
+                android:layout_width="171dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="25sp"
+                android:text="@string/battleText"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/gObjStats"
+                android:layout_width="151dp"
+                android:layout_height="match_parent"
+                android:text="@string/gObjStats"
+                android:textAlignment="textEnd"
+                android:textColor="@color/deepBlue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="362dp"
+        android:layout_height="50dp"
+        android:background="@color/lightFleshTone"
+        android:paddingLeft="25sp"
+        android:paddingTop="10sp"
+        android:paddingRight="10sp"
+        android:paddingBottom="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/tileMapTable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/hObjNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="25sp"
+                android:text="@string/humanObj_name"
+                android:textAlignment="viewStart"
+                android:textColor="@color/deepBlue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/hObjHealthTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="25sp"
+                android:text="@string/humanObj_health"
+                android:textAlignment="viewStart"
+                android:textColor="@color/brickRed"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/hObjStrengthTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="15sp"
+                android:text="@string/humanObj_strength"
+                android:textAlignment="viewStart"
+                android:textColor="@color/medFleshTone"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/hObjLivesTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="25sp"
+                android:text="@string/humanObj_lives"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/goblinCountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="25sp"
+                android:text="@string/goblincounttext"
+                android:textAlignment="viewStart"
+                android:textColor="@color/forestGreen"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/goblinImg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/smokeOrange"
+        android:contentDescription="@string/humanicon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/upBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tileMapTable"
+        app:layout_constraintVertical_bias="0.285"
+        app:srcCompat="@drawable/goblin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
