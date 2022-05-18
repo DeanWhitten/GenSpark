@@ -22,8 +22,10 @@
     <string name="humanicon">HumanIcon</string>
     <string name="guy">GUY</string>
     <string name="goblincounttext">goblinCountText</string>
-    <string name="battleText">BattleText</string>
-    <string name="gObjStats">gobStats</string>
+    <string name="goblin_nameTXT">Goblin Name</string>
+    <string name="goblin_strengthTXT">goblin strength</string>
+    <string name="goblin_healthTXT">Goblin health</string>
+    <string name="a_attack_d_dodge">A - Attack    D - Dodge</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

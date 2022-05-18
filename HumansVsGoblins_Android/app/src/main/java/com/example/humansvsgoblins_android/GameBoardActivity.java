@@ -1,8 +1,9 @@
 package com.example.humansvsgoblins_android;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,6 +203,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
  }
 
+
+
     private void move(String dir){
         int[] delta = direction(dir);
         int xDelta = delta[0];
@@ -268,23 +271,146 @@ public class GameBoardActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void switchToBattle(Goblin gobEle) {
-        while(gobEle.getHealth() != 0){
             battleStatusNum = 1;
-            TableLayout battleTable = findViewById(R.id.tableLayout2);
-            battleTable.setVisibility(View.VISIBLE);
-
-            ImageView gobImg = findViewById(R.id.goblinImg);
-            gobImg.setVisibility(View.VISIBLE);
-
-        }
+            setBattleView();
+            displayGoblinBattleStatus(gobEle);
+            combat(gobEle);
         if(gobEle.getHealth() == 0){
             battleStatusNum = 0;
             goblinArr.remove(gobEle);
         }
-
-
     }
 
+
+
+    private void setBattleView() {
+        TableLayout battleTable = findViewById(R.id.tableLayout2);
+        battleTable.setVisibility(View.VISIBLE);
+        ImageView gobImg = findViewById(R.id.goblinImg);
+        gobImg.setVisibility(View.VISIBLE);
+        TextView inBattleText = findViewById(R.id.inBattleTxtView);
+        inBattleText.setVisibility(View.VISIBLE);
+
+        Button leftBtn = findViewById(R.id.leftBtn);
+        leftBtn.setVisibility(View.GONE);
+        Button rightBtn = findViewById(R.id.rightBtn);
+        rightBtn.setVisibility(View.GONE);
+
+        Button upBtn = findViewById(R.id.upBtn);
+        upBtn.setText("A");
+        Button downBtn = findViewById(R.id.downBtn);
+        downBtn.setText("D");
+    }
+
+    private void displayGoblinBattleStatus(Goblin gobEle) {
+        TextView goblinName = findViewById(R.id.goblinObjNameView);
+        goblinName.setText(gobEle.getName());
+        TextView goblinHealth = findViewById(R.id.goblinObjHealthView);
+        goblinHealth.setText(String.valueOf("Health: " + gobEle.getHealth()));
+        TextView goblinStrength = findViewById(R.id.goblinObjStregthView);
+        goblinStrength.setText(String.valueOf("Strength: " + gobEle.getStrength()));
+    }
+
+    private void combat(Goblin gobEle) {
+        Button aBtn = (Button) findViewById(R.id.upBtn);
+        aBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(battleStatusNum == 1) {
+                    fight("attack", gobEle);
+                }
+            }
+        });
+        Button dBtn = (Button) findViewById(R.id.downBtn);
+        dBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(battleStatusNum == 1) {
+                    fight("dodge", gobEle);
+                }
+            }
+        });
+    }
+
+    private void fight(String userCombatMove, Goblin gobEle) {
+        String gobCombatMove = generateRandGobCombat();
+        switch (userCombatMove){
+            case "attack":
+                if(gobCombatMove == userCombatMove){
+                    gobEle.setHealth(gobEle.getHealth() - userObj.getStrength());
+                    userObj.setHealth(userObj.getHealth() - gobEle.getStrength());
+                }else{
+                    boolean dodge = checkIfDodged();
+                    if(!dodge){
+                        gobEle.setHealth(gobEle.getHealth() - (userObj.getStrength() * 2));
+                    }
+                }
+
+                break;
+            case "dodge":
+                if(gobCombatMove == userCombatMove){
+                    gobEle.setHealth(gobEle.getHealth() - userObj.getStrength());
+                    userObj.setHealth(userObj.getHealth() - gobEle.getStrength());
+                }else{
+                    boolean dodge = checkIfDodged();
+                    if(!dodge){
+                        userObj.setHealth(userObj.getHealth() - (gobEle.getStrength() * 2));
+                    }
+                }
+                break;
+        }
+
+        if(userObj.getHealth() <= 0){
+            if(userObj.getLives() != 0){
+                userObj.setLives(userObj.getLives() - 1);
+                userObj.setHealth(100);
+            }
+        }
+        if(gobEle.getHealth() <= 0){
+            battleStatusNum = 0;
+            goblinArr.remove(gobEle);
+            setBackToNonBattle();
+            listenForButtons();
+        }
+        setHumanStatsDisplay();
+        displayGoblinBattleStatus(gobEle);
+    }
+
+    private String generateRandGobCombat() {
+        int dice = (int) (Math.random() * 20);
+        if(dice % 2 == 0){
+            return  "attack";
+        }else{
+            return "block";
+        }
+    }
+    private boolean checkIfDodged() {
+        int dice = (int) (Math.random() * 20);
+        if(dice % 2 == 0){
+            return  true;
+        }else{
+            return false;
+        }
+    }
+    private void setBackToNonBattle() {
+        TableLayout battleTable = findViewById(R.id.tableLayout2);
+        battleTable.setVisibility(View.GONE);
+        ImageView gobImg = findViewById(R.id.goblinImg);
+        gobImg.setVisibility(View.GONE);
+        TextView inBattleText = findViewById(R.id.inBattleTxtView);
+        inBattleText.setVisibility(View.GONE);
+
+        Button leftBtn = findViewById(R.id.leftBtn);
+        leftBtn.setVisibility(View.VISIBLE);
+        Button rightBtn = findViewById(R.id.rightBtn);
+        rightBtn.setVisibility(View.VISIBLE);
+
+        Button upBtn = findViewById(R.id.upBtn);
+        upBtn.setText("ᐃ");
+        Button downBtn = findViewById(R.id.downBtn);
+        downBtn.setText("ᐁ");
+    }
 }
 
