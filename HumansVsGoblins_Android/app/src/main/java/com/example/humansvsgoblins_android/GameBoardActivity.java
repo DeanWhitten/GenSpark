@@ -1,9 +1,14 @@
 package com.example.humansvsgoblins_android;
 
+import static com.example.humansvsgoblins_android.R.color.*;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameBoardActivity extends AppCompatActivity {
+public class GameBoardActivity<BLACK_COLOR> extends AppCompatActivity {
     String userName;
     private Human userObj;
 
@@ -52,7 +57,6 @@ public class GameBoardActivity extends AppCompatActivity {
             listenForButtons();
 
     }
-
 
     private Object generateHuman() {
         return new Human(userName);
@@ -114,7 +118,7 @@ public class GameBoardActivity extends AppCompatActivity {
             overFlowCount++;
         }
         if(overFlowCount != 0){
-            heartString.append("  x " + overFlowCount);
+            heartString.append("  x ").append(overFlowCount);
         }
 
         return heartString.toString();
@@ -161,56 +165,38 @@ public class GameBoardActivity extends AppCompatActivity {
     private void listenForButtons() {
 
             Button up = (Button) findViewById(R.id.upBtn);
-            up.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(battleStatusNum == 0) {
-                        move("UP");
-                    }
+            up.setOnClickListener(v -> {
+                if(battleStatusNum == 0) {
+                    move("UP");
                 }
             });
 
             Button down = (Button) findViewById(R.id.downBtn);
-            down.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(battleStatusNum == 0) {
-                        move("DOWN");
-                    }
+            down.setOnClickListener(v -> {
+                if(battleStatusNum == 0) {
+                    move("DOWN");
                 }
             });
 
             Button right = (Button) findViewById(R.id.rightBtn);
-            right.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(battleStatusNum == 0) {
-                        move("RIGHT");
-                    }
+            right.setOnClickListener(v -> {
+                if(battleStatusNum == 0) {
+                    move("RIGHT");
                 }
             });
 
             Button left = (Button) findViewById(R.id.leftBtn);
-            left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(battleStatusNum == 0) {
-                        move("LEFT");
-                    }
+            left.setOnClickListener(v -> {
+                if(battleStatusNum == 0) {
+                    move("LEFT");
                 }
             });
-
-
  }
-
-
 
     private void move(String dir){
         int[] delta = direction(dir);
         int xDelta = delta[0];
         int yDelta = delta[1];
-
-
         Boolean inbound = checkBounds(userObj.getX()+ xDelta, userObj.getY() + yDelta);
 
         if(inbound){
@@ -240,9 +226,6 @@ public class GameBoardActivity extends AppCompatActivity {
         return new int[] {xDelta, yDelta};
     }
 
-
-
-
     private void updateLocationsOnMap(int xD, int yD) {
         userObj.setX(userObj.getX()+ xD);
         userObj.setY(userObj.getY()+ yD);
@@ -254,9 +237,7 @@ public class GameBoardActivity extends AppCompatActivity {
         ViewGroup oldRow = (ViewGroup) tileMapTable.getChildAt(userObj.getX() - xD);
         ImageView oldCellView = (ImageView) oldRow.getChildAt(userObj.getY() - yD);
         oldCellView.setImageResource(BACKGROUND_TILE);
-
     }
-
     private Boolean checkBounds(int x, int y) {
         return (x >= 0 && x < ROWS) && (y >= 0 && y < COLUMNS);
     }
@@ -271,7 +252,6 @@ public class GameBoardActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
     private void switchToBattle(Goblin gobEle) {
             battleStatusNum = 1;
             setBattleView();
@@ -282,8 +262,6 @@ public class GameBoardActivity extends AppCompatActivity {
             goblinArr.remove(gobEle);
         }
     }
-
-
 
     private void setBattleView() {
         TableLayout battleTable = findViewById(R.id.tableLayout2);
@@ -308,19 +286,16 @@ public class GameBoardActivity extends AppCompatActivity {
         TextView goblinName = findViewById(R.id.goblinObjNameView);
         goblinName.setText(gobEle.getName());
         TextView goblinHealth = findViewById(R.id.goblinObjHealthView);
-        goblinHealth.setText(String.valueOf("Health: " + gobEle.getHealth()));
+        goblinHealth.setText("Health: " + gobEle.getHealth());
         TextView goblinStrength = findViewById(R.id.goblinObjStregthView);
-        goblinStrength.setText(String.valueOf("Strength: " + gobEle.getStrength()));
+        goblinStrength.setText("Strength: " + gobEle.getStrength());
     }
 
     private void combat(Goblin gobEle) {
         Button aBtn = (Button) findViewById(R.id.upBtn);
-        aBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(battleStatusNum == 1) {
-                    fight("attack", gobEle);
-                }
+        aBtn.setOnClickListener(v -> {
+            if(battleStatusNum == 1) {
+                fight("attack", gobEle);
             }
         });
         Button dBtn = (Button) findViewById(R.id.downBtn);
@@ -347,7 +322,6 @@ public class GameBoardActivity extends AppCompatActivity {
                         gobEle.setHealth(gobEle.getHealth() - (userObj.getStrength() * 2));
                     }
                 }
-
                 break;
             case "dodge":
                 if(gobCombatMove == userCombatMove){
@@ -366,17 +340,26 @@ public class GameBoardActivity extends AppCompatActivity {
             if(userObj.getLives() != 0){
                 userObj.setLives(userObj.getLives() - 1);
                 userObj.setHealth(100);
+            }else{
+              gameOver();
             }
         }
+
         if(gobEle.getHealth() <= 0){
             battleStatusNum = 0;
             goblinArr.remove(gobEle);
+            if(goblinArr.isEmpty()){
+                gameOver();
+            }
             setBackToNonBattle();
             listenForButtons();
         }
+
         setHumanStatsDisplay();
         displayGoblinBattleStatus(gobEle);
     }
+
+
 
     private String generateRandGobCombat() {
         int dice = (int) (Math.random() * 20);
@@ -386,6 +369,7 @@ public class GameBoardActivity extends AppCompatActivity {
             return "block";
         }
     }
+
     private boolean checkIfDodged() {
         int dice = (int) (Math.random() * 20);
         if(dice % 2 == 0){
@@ -394,6 +378,7 @@ public class GameBoardActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private void setBackToNonBattle() {
         TableLayout battleTable = findViewById(R.id.tableLayout2);
         battleTable.setVisibility(View.GONE);
@@ -412,5 +397,27 @@ public class GameBoardActivity extends AppCompatActivity {
         Button downBtn = findViewById(R.id.downBtn);
         downBtn.setText("ᐁ");
     }
+
+    private void gameOver() {
+        Button upBtn = findViewById(R.id.upBtn);
+        upBtn.setVisibility(View.GONE);
+        Button downBtn = findViewById(R.id.downBtn);
+        downBtn.setVisibility(View.GONE);
+        Button leftBtn = findViewById(R.id.leftBtn);
+        leftBtn.setVisibility(View.GONE);
+        Button rightBtn = findViewById(R.id.rightBtn);
+        rightBtn.setVisibility(View.GONE);
+
+        ConstraintLayout gameOverLayout = findViewById(R.id.GameOverView);
+        TextView gameOverTextView = findViewById(R.id.textView5);
+        if(userObj.getHealth() <= 0 && userObj.getLives() == 0){
+            gameOverTextView.setText("Game Over:\n You LOSE!");
+        }
+        if(goblinArr.isEmpty()){
+            gameOverTextView.setText("Game Over:\n You WON!");
+        }
+        gameOverLayout.setVisibility(View.VISIBLE);
+    }
+
 }
 

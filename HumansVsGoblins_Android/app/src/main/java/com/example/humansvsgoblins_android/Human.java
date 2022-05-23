@@ -16,7 +16,7 @@ public class Human extends Humanoid {
 
     public Human(String name){
         super(name, 100, 15);
-        lives = 10;
+        lives = 3;
     }
 
     public void generateStartLocation( int r, int c){

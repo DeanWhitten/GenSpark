@@ -26,6 +26,7 @@
     <string name="goblin_strengthTXT">goblin strength</string>
     <string name="goblin_healthTXT">Goblin health</string>
     <string name="a_attack_d_dodge">A - Attack    D - Dodge</string>
+    <string name="game_overText">Game Over</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
